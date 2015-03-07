@@ -30,6 +30,17 @@ RUN chmod +x /usr/local/bin/eclipse && \
     chmod 0440 /etc/sudoers.d/developer && \
     chown developer:developer -R /home/developer && \
     chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
+    
+# make sure the package repository is up to date
+RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
+RUN apt-get update
+
+RUN apt-get install -y openssh-server
+RUN mkdir /var/run/sshd 
+RUN echo 'root:screencast' |chpasswd
+
+EXPOSE 22
+CMD    /usr/sbin/sshd -D
 
 USER developer
 ENV HOME /home/developer
