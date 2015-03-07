@@ -1,6 +1,8 @@
 FROM ubuntu:14.04
 MAINTAINER Fabio Rehm "fgrehm@gmail.com"
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN sed 's/main$/main universe/' -i /etc/apt/sources.list && \
     apt-get update && apt-get install -y software-properties-common && \
     add-apt-repository ppa:webupd8team/java -y && \
